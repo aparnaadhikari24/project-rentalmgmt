@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StayNest — Find your next rental</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+  <a class="brand" href="index.php">
+        <span class="logo"></span>
+        <span>StayNest</span>
+      </a>
+      <nav>
+  <a href="index.php">Home</a>
+        <a href="properties.php">Properties</a>
+        <a class="btn secondary" href="login.php">Login</a>
+        <a class="btn" href="signup.php">Sign up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <h1>Find beautiful places to live, anywhere</h1>
+          <p>Search thousands of verified rental listings with transparent prices and modern amenities.</p>
+          <form id="searchForm" class="search-bar" action="properties.php" method="get">
+            <input name="q" placeholder="City, neighborhood, or address" aria-label="Location">
+            <input name="min_price" type="number" placeholder="Min price" aria-label="Minimum price">
+            <input name="max_price" type="number" placeholder="Max price" aria-label="Maximum price">
+            <select name="type" aria-label="Property type">
+              <option value="">Any type</option>
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
+              <option value="studio">Studio</option>
+            </select>
+            <button class="btn" type="submit">Search</button>
+          </form>
+        </div>
+        <div>
+          <div class="card" style="padding:16px;">
+            <div class="body">
+              <div class="title">Why StayNest?</div>
+              <div class="meta">• Clean, modern listings<br>• Direct landlord contact<br>• Safe and secure</div>
+              <a class="btn" href="properties.php" style="margin-top:8px;">Browse Properties</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Featured properties</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="thumb"><img alt="" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1200&auto=format&fit=crop" /></div>
+          <div class="body">
+            <div class="title">Sunny 2BR Apartment</div>
+            <div class="meta">Downtown • 2 bed • 1 bath</div>
+            <div class="actions">
+              <span class="price">$1,800/mo</span>
+              <a class="btn secondary" href="properties.php">View</a>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img alt="" src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c08e?q=80&w=1200&auto=format&fit=crop" /></div>
+          <div class="body">
+            <div class="title">Cozy Studio Loft</div>
+            <div class="meta">Arts District • Studio • 1 bath</div>
+            <div class="actions">
+              <span class="price">$1,250/mo</span>
+              <a class="btn secondary" href="properties.php">View</a>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img alt="" src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop" /></div>
+          <div class="body">
+            <div class="title">Modern Family Home</div>
+            <div class="meta">Suburbs • 4 bed • 3 bath</div>
+            <div class="actions">
+              <span class="price">$2,950/mo</span>
+              <a class="btn secondary" href="properties.php">View</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="y"></span> StayNest</div>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Prefer PHP index so APP_ROOT is available
+DirectoryIndex index.php index.html
