@@ -90,7 +90,7 @@ if (current_user_id()) {
             <div class="title"><a href="property.php?id=<?= $r['id'] ?>" style="text-decoration:none;color:inherit;"><?= htmlspecialchars($r['title']) ?></a></div>
             <div class="meta"><?= htmlspecialchars($r['location']) ?> • <?= htmlspecialchars($r['type'] ?? '') ?></div>
             <div class="actions">
-              <span class="price">$<?= number_format($r['price'], 2) ?>/mo</span>
+              <span class="price">Rs<?= number_format($r['price'], 2) ?>/mo</span>
               <?php $saved = in_array((int)$r['id'], $favIds, true); ?>
               <button class="btn secondary fav-btn <?= $saved?'on':'' ?>" data-pid="<?= $r['id'] ?>" aria-pressed="<?= $saved?'true':'false' ?>">❤ <?= $saved?'Saved':'Save' ?></button>
             </div>

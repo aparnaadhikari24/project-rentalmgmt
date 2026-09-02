@@ -52,6 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt = pdo()->prepare('DELETE FROM properties WHERE id=? AND owner_id=?');
 		$stmt->execute([$id, $uid]);
 		$success = 'Property deleted';
+	} elseif ($action === 'update') {
+		require dirname(__DIR__) . '/backend/property_update.php';
 	} elseif ($action === 'set_status') {
 		$id = (int)($_POST['id'] ?? 0);
 		$status = $_POST['status'] === 'rented' ? 'rented' : 'available';
@@ -107,13 +109,14 @@ $rows = $props->fetchAll();
 	<section class="section">
 		<h2>Your listings</h2>
 		<table class="table">
-			<thead><tr><th>Title</th><th>Type</th><th>Price</th><th>Status</th><th>Inquiries</th><th>Created</th><th></th></tr></thead>
+			<thead><tr><th>Title</th><th>Type</th><th>Price</th><th>Location</th><th>Status</th><th>Inquiries</th><th>Created</th><th></th></tr></thead>
 			<tbody>
 			<?php foreach ($rows as $r): ?>
 				<tr>
 					<td><a href="property.php?id=<?= $r['id'] ?>"><?= htmlspecialchars($r['title']) ?></a></td>
 					<td><?= htmlspecialchars($r['type'] ?? '') ?></td>
-					<td>$<?= number_format($r['price'], 2) ?></td>
+					<td>Rs<?= number_format($r['price'], 2) ?></td>
+					<td><?= htmlspecialchars($r['location'] ?? '') ?></td>
 					<td>
 						<form method="post" style="display:inline-block">
 							<input type="hidden" name="action" value="set_status">
@@ -127,10 +130,33 @@ $rows = $props->fetchAll();
 					<td><?= (int)$r['inquiries_count'] ?></td>
 					<td><?= htmlspecialchars($r['created_at']) ?></td>
 					<td>
+						<button class="btn" onclick="showEditForm(<?= $r['id'] ?>)">Edit</button>
 						<form method="post" onsubmit="return confirm('Delete this listing?')" style="display:inline-block;">
 							<input type="hidden" name="action" value="delete">
 							<input type="hidden" name="id" value="<?= $r['id'] ?>">
 							<button class="btn secondary" type="submit">Delete</button>
+						</form>
+					</td>
+				</tr>
+				<tr id="edit-row-<?= $r['id'] ?>" style="display:none;">
+					<td colspan="8">
+						<form class="form-grid" method="post" enctype="multipart/form-data" style="margin-top:1rem;">
+							<input type="hidden" name="action" value="update">
+							<input type="hidden" name="id" value="<?= $r['id'] ?>">
+							<div class="input"><label>Title</label><input name="title" value="<?= htmlspecialchars($r['title']) ?>" required></div>
+							<div class="input"><label>Description</label><textarea name="description" rows="2"><?= htmlspecialchars($r['description'] ?? '') ?></textarea></div>
+							<div class="input"><label>Price</label><input type="number" step="0.01" name="price" value="<?= htmlspecialchars($r['price']) ?>" required></div>
+							<div class="input"><label>Location</label><input name="location" value="<?= htmlspecialchars($r['location']) ?>" required></div>
+							<div class="input"><label>Type</label>
+								<select name="type">
+									<option value="apartment" <?= $r['type']==='apartment'?'selected':'' ?>>Apartment</option>
+									<option value="house" <?= $r['type']==='house'?'selected':'' ?>>House</option>
+									<option value="studio" <?= $r['type']==='studio'?'selected':'' ?>>Studio</option>
+								</select>
+							</div>
+							<div class="input"><label>Image (replace)</label><input type="file" name="image_file" accept="image/*"></div>
+							<button class="btn" type="submit">Save</button>
+							<button class="btn secondary" type="button" onclick="hideEditForm(<?= $r['id'] ?>)">Cancel</button>
 						</form>
 					</td>
 				</tr>
@@ -169,6 +195,12 @@ $rows = $props->fetchAll();
 		document.getElementById('inqList').textContent = 'Error loading inquiries.';
 	}
 })();
+function showEditForm(id) {
+	document.getElementById('edit-row-' + id).style.display = 'table-row';
+}
+function hideEditForm(id) {
+	document.getElementById('edit-row-' + id).style.display = 'none';
+}
 </script>
 </body>
 </html>

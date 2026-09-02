@@ -84,7 +84,7 @@ try {
               <div class="title"><a href="property.php?id=<?= (int)$r['id'] ?>" style="text-decoration:none;color:inherit;"><?= htmlspecialchars($r['title']) ?></a></div>
               <div class="meta"><?= htmlspecialchars($r['location']) ?> • <?= htmlspecialchars($r['type'] ?? '') ?></div>
               <div class="actions">
-                <span class="price">$<?= number_format((float)$r['price'], 2) ?>/mo</span>
+                <span class="price">Rs<?= number_format((float)$r['price'], 2) ?>/mo</span>
                 <a class="btn secondary" href="property.php?id=<?= (int)$r['id'] ?>">View</a>
               </div>
             </div>

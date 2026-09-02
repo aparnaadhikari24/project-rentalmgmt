@@ -72,7 +72,7 @@ if (!empty($p['image_url'])) {
           <div class="muted" style="margin:6px 0 0; font-weight:800; color:#b91c1c;">Rented</div>
         <?php endif; ?>
         <div class="meta"><?= htmlspecialchars($p['location']) ?> • <?= htmlspecialchars($p['type'] ?? '') ?></div>
-        <div class="price" style="font-size:1.3rem;">$<?= number_format($p['price'], 2) ?>/mo</div>
+        <div class="price" style="font-size:1.3rem;">Rs<?= number_format($p['price'], 2) ?>/mo</div>
         <p><?= nl2br(htmlspecialchars($p['description'])) ?></p>
         <div class="actions">
           <?php $isRented = (($p['status'] ?? 'available') === 'rented'); ?>
